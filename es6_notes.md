@@ -13,29 +13,42 @@ Template literals are essentially string literals that include embedded expressi
 Denoted with backticks ( `` ) instead of single quotes ( '' ) or double quotes ( "" ), template literals can contain placeholders which are represented using ${expression}.
 
 ex:
+```
 const myName = 'John';
 const greeting = `Hello, my name is ${myName}`;
 console.log(greeting);
+```
 
 ## Destructuring
 
 ### Destructuring values from an array:
+```
 const point = [10, 25, -34];
 const [x, y, z] = point;
 console.log(x, y, z);
+```
 
 _You can also ignore values when destructuring arrays._
 _For example, const [x, , z] = point; ignores the y coordinate and discards it._
 
 ### Destructuring values from an object
+```
 const gemstone = {
   type: 'quartz',
   color: 'rose',
   karat: 21.29
 };
+```
 
 const {type, color, karat} = gemstone;
 console.log(type, color, karat);
 
 _TIP: You can also specify the values you want to select when destructuring an object._
 _For example, let {color} = gemstone; will only select the color property from the gemstone object._
+
+## Object literal shorthand
+If object properties have the same name as the variables being assigned to them,
+then you can drop the duplicate variable names.
+
+### Shorthand method names
+The `function` keyword of a method in an object can be dropped.
