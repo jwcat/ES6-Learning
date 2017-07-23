@@ -38,10 +38,10 @@ const gemstone = {
   color: 'rose',
   karat: 21.29
 };
-```
 
 const {type, color, karat} = gemstone;
 console.log(type, color, karat);
+```
 
 _TIP: You can also specify the values you want to select when destructuring an object._
 _For example, let {color} = gemstone; will only select the color property from the gemstone object._
@@ -52,3 +52,11 @@ then you can drop the duplicate variable names.
 
 ### Shorthand method names
 The `function` keyword of a method in an object can be dropped.
+
+## Iteration
+It is the process of getting the next item one after the other from an array and we've been using i for a long time, such as in for loop.
+
+New in ES6, there is new iterable interface protocol and there is a new loop called for...of loop.
+
+iterable protocol - allows Javascript objects to define or customize their iteration behavior.
+for...of loop - a loop that iterates over iterable objects(that implement this new iterable interface)
