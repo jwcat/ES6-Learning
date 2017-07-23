@@ -17,3 +17,25 @@ const myName = 'John';
 const greeting = `Hello, my name is ${myName}`;
 console.log(greeting);
 
+## Destructuring
+
+### Destructuring values from an array:
+const point = [10, 25, -34];
+const [x, y, z] = point;
+console.log(x, y, z);
+
+_You can also ignore values when destructuring arrays._
+_For example, const [x, , z] = point; ignores the y coordinate and discards it._
+
+### Destructuring values from an object
+const gemstone = {
+  type: 'quartz',
+  color: 'rose',
+  karat: 21.29
+};
+
+const {type, color, karat} = gemstone;
+console.log(type, color, karat);
+
+_TIP: You can also specify the values you want to select when destructuring an object._
+_For example, let {color} = gemstone; will only select the color property from the gemstone object._
