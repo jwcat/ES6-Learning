@@ -60,3 +60,38 @@ New in ES6, there is new iterable interface protocol and there is a new loop cal
 
 iterable protocol - allows Javascript objects to define or customize their iteration behavior.
 for...of loop - a loop that iterates over iterable objects(that implement this new iterable interface)
+
+## For...of loop
+It combines the strengths of its siblings, the for loop and the for...in loop,
+to loop over any type of data that is iterable (meaning it follows the iterable protocol).
+By default, this includes the data types String, Array, Map,
+and Set—notably absent from this list is the Object data type (i.e. {}).
+Objects are not iterable, by default.
+
+Ex:
+```
+const digits = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+
+for (const digit of digits) {
+  console.log(digit);
+}
+```
+
+_TIP: It’s good practice to use plural names for objects
+that are collections of values.
+That way, when you loop over the collection,
+you can use the singular version of the name
+when referencing individual values in the collection.
+For example, for (const button of buttons) {...}._
+
+You can stop or break a for...of loop at anytime.
+```
+const digits = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+
+for (const digit of digits) {
+  if (digit % 2 === 0) {
+    continue;
+  }
+  console.log(digit);
+}
+```
