@@ -95,3 +95,26 @@ for (const digit of digits) {
   console.log(digit);
 }
 ```
+
+## Spread operator
+The spread operator, written with three consecutive dots ( ... ),
+is new in ES6 and gives you the ability to expand, or spread,
+iterable objects into multiple elements.
+
+Ex:
+```
+const books = ["Don Quixote", "The Hobbit", "Alice in Wonderland", "Tale of Two Cities"];
+console.log(...books);
+```
+_Prints: Don Quixote The Hobbit Alice in Wonderland Tale of Two Cities_
+
+Combining arrays:
+```
+const fruits = ["apples", "bananas", "pears"];
+const vegetables = ["corn", "potatoes", "carrots"];
+
+const produce = [...fruits, ...vegetables];
+
+console.log(produce);
+```
+_Prints: [ 'apples', 'bananas', 'pears', 'corn', 'potatoes', 'carrots' ]
