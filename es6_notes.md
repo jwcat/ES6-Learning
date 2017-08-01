@@ -118,3 +118,14 @@ const produce = [...fruits, ...vegetables];
 console.log(produce);
 ```
 _Prints: [ 'apples', 'bananas', 'pears', 'corn', 'potatoes', 'carrots' ]
+
+## Rest parameter
+The rest parameter, also written with three consecutive dots ( ... ), allows you to represent an indefinite number of elements as an array.
+
+Ex:
+```
+const order = [20.17, 18.67, 1.50, "cheese", "eggs", "milk", "bread"];
+const [total, subtotal, tax, ...items] = order;
+console.log(total, subtotal, tax, items);
+```
+_Prints: 20.17 18.67 1.5 ["cheese", "eggs", "milk", "bread"]_
