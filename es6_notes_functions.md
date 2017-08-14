@@ -47,3 +47,49 @@ const upperizedNames = ['Farrin', 'Kagure', 'Asser'].map( name => {
   return `${name} has ${name.length} characters in their name`;
 });
 ```
+
+### "this" and Arrow Functions
+	* With regular functions, the value of this is set based on how the function is called.
+	* With arrow functions, the value of this is based on the function's surrounding context.
+
+## Default Function Parameters
+ES6 has introduced a new way to create defaults.
+It's called default function parameters.
+They're placed in the function's parameter list.
+
+Ex:
+```
+function greet(name = 'Student', greeting = 'Welcome') {
+  return `${greeting} ${name}!`;
+}
+
+greet(); // Welcome Student!
+greet('James'); // Welcome James!
+greet('Richard', 'Howdy'); // Howdy Richard!
+```
+
+### Defaults and destructuring arrays
+You can combine default function parameters with destructuring to create some pretty powerful functions!
+Ex:
+```
+function createGrid([width = 5, height = 5]) {
+  return 'Generates a ${width} x ${height} grid';
+}
+
+createGrid([]); // Generates a 5 x 5 grid
+createGrid([2]); // Generates a 2 x 5 grid
+createGrid([2, 3]); // Generates a 2 x 3 grid
+createGrid([undefined, 3]); // Generates a 5 x 3 grid
+
+createGrid(); // throws an error
+```
+So use default function parameters,
+```
+function createGrid([width = 5, height = 5] = []) {
+  return 'Generating a grid of ${width} by ${height}';
+}
+
+createGrid(); // Generates a 5 x 5 grid
+```
+
+### Defaults and destructuring objects
