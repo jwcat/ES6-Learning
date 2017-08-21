@@ -133,3 +133,29 @@ console.log(months.values());
 //Output: SetIterator {'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'}
 ```
 
+### Looping over Sets
+Using the SetIterator:
+```
+const iterator = months.values();
+iterator.next();
+//Output: Object {value: 'January', done: false}
+```
+Using a `for...of` Loop:
+```
+const colors = new Set(['red', 'orange', 'yellow', 'green', 'blue', 'violet', 'brown', 'black']);
+for (const color of colors) {
+  console.log(color);
+}
+
+/*
+Output:
+red 
+orange 
+yellow 
+green 
+blue 
+violet 
+brown 
+black
+*/
+```
