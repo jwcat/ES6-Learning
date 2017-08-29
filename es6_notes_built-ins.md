@@ -202,3 +202,129 @@ uniqueFlavors.add(flavor1);
 
 console.log(uniqueFlavors);
 ```
+
+## Maps
+Map is an object that lets you store key-value pairs where both the keys and the values can be objects, primitive values, or a combination of the two
+Ex:
+```
+const employees = new Map();
+console.log(employees);
+
+// Output: Map {}
+```
+Add key-values by using the Map’s .set() method.
+```
+const employees = new Map();
+
+employees.set('james.parkes@udacity.com', { 
+    firstName: 'James',
+    lastName: 'Parkes',
+    role: 'Content Developer' 
+});
+employees.set('julia@udacity.com', {
+    firstName: 'Julia',
+    lastName: 'Van Cleve',
+    role: 'Content Developer'
+});
+employees.set('richard@udacity.com', {
+    firstName: 'Richard',
+    lastName: 'Kalehoff',
+    role: 'Content Developer'
+});
+
+console.log(employees);
+
+// Output: Map {'james.parkes@udacity.com' => Object {...}, 'julia@udacity.com' => Object {...}, 'richard@udacity.com' => Object {...}}
+```
+
+`.delete()` method removes key-value pairs
+```
+employees.delete('julia@udacity.com');
+employees.delete('richard@udacity.com');
+console.log(employees);
+
+// Output: Map {'james.parkes@udacity.com' => Object {firstName: 'James', lastName: 'Parkes', role: 'Course Developer'}}
+```
+
+`.clear()` method removes all key-value pairs
+
+`.has()` method to check if a key-value pair exists
+```
+const members = new Map();
+
+members.set('Evelyn', 75.68);
+members.set('Liam', 20.16);
+members.set('Sophia', 0);
+members.set('Marcus', 10.25);
+
+console.log(members.has('Xavier'));
+console.log(members.has('Marcus'));
+
+// Output:
+// false
+// true
+```
+
+`.get()` method
+```
+console.log(members.get('Evelyn'));
+// Output: 75.68
+```
+
+### Looping Through Maps
+#### 1. Using the MapIterator:
+```
+let iteratorObjForKeys = members.keys();
+iteratorObjForKeys.next();
+// Output: Object {value: 'Evelyn', done: false}
+```
+use the `.values()` method to access the Map’s values
+```
+let iteratorObjForValues = members.values();
+iteratorObjForValues.next();
+// Output: Object {value: 75.68, done: false}
+```
+
+#### 2. Using a `for...of` Loop
+```
+for (const member of members) {
+  console.log(member);
+}
+ 
+// Output:
+// ['Evelyn', 75.68]
+// ['Liam', 20.16]
+// ['Sophia', 0]
+// ['Marcus', 10.25]
+ ```
+
+_When you use a for...of loop with a Map, you don’t exactly get back a key or a value. Instead, the key-value pair is split up into an array where the first element is the key and the second element is the value..._
+Solution:
+```
+/*
+ * Using array destructuring, fix the following code to print the keys and values of the `members` Map to the console.
+ */
+
+const members = new Map();
+
+members.set('Evelyn', 75.68);
+members.set('Liam', 20.16);
+members.set('Sophia', 0);
+members.set('Marcus', 10.25);
+
+for (const member of members) {
+    const [a, b] = member;
+    console.log(a, b);
+}
+```
+
+#### 3. Using a forEach Loop
+```
+members.forEach((value, key) => console.log(value, key));
+
+// Output:
+// 'Evelyn' 75.68
+// 'Liam' 20.16
+// 'Sophia' 0
+// 'Marcus' 10.25
+ ```
