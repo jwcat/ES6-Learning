@@ -357,3 +357,59 @@ console.log(library);
 
 // Output: WeakMap {Object {title: 'The Catcher in the Rye', author: 'J.D. Salinger'} => false, Object {title: 'Gulliver’s Travels', author: 'Jonathan Swift'} => true}
 ```
+
+## Promises
+Created with the new Promise constructor function - new Promise(). 
+A promise will let you start some work that will be done asynchronously and let you get back to your regular work. 
+When you create the promise, you must give it the code that will be run asynchronously. You provide this code as the argument of the constructor function:
+```
+new Promise(function () {
+    window.setTimeout(function createSundae(flavor = 'chocolate') {
+        const sundae = {};
+        // request ice cream
+        // get cone
+        // warm up ice cream scoop
+        // scoop generous portion into cone!
+    }, Math.random() * 2000);
+});
+```
+
+### Indicated a Successful Request or a Failed Request
+By passing two functions into our initial function. Typically we call these resolve and reject.
+```
+new Promise(function (resolve, reject) {
+    window.setTimeout(function createSundae(flavor = 'chocolate') {
+        const sundae = {};
+        // request ice cream
+        // get cone
+        // warm up ice cream scoop
+        // scoop generous portion into cone!
+        if ( /* iceCreamConeIsEmpty(flavor) */ ) {
+            reject(`Sorry, we're out of that flavor :-(`);
+        }
+        resolve(sundae);
+    }, Math.random() * 2000);
+});
+```
+
+### Promises Return Immediately
+a Promise will immediately return an object
+```
+const myPromiseObj = new Promise(function (resolve, reject) {
+    // sundae creation code
+});
+```
+
+That object has a .then() method on it that we can use to have it notify us if the request we made in the promise was either successful or failed. The .then() method takes two functions:
+
+1. the function to run if the request completed successfully
+2. the function to run if the request failed to complete
+```
+mySundae.then(function(sundae) {
+    console.log(`Time to eat my delicious ${sundae}`);
+}, function(msg) {
+    console.log(msg);
+    self.goCry(); // not a real method
+});
+```
+
