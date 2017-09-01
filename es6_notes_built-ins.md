@@ -498,3 +498,137 @@ agent.payRate; // $850 the actor's actual pay
 12. the getPrototypeOf trap - lets the proxy handle calls to Object.getPrototypeOf on the proxy object
 13. the setPrototypeOf trap - lets the proxy handle calls to Object.setPrototypeOf on the proxy object
 
+## Generators
+### Pausable Functions
+```
+function* getEmployee() {
+    console.log('the function has started');
+
+    const names = ['Amanda', 'Diego', 'Farrin', 'James', 'Kagure', 'Kavita', 'Orit', 'Richard'];
+
+    for (const name of names) {
+        console.log( name );
+    }
+
+    console.log('the function has ended');
+}
+```
+_asterisk indicates that this function is actually a generator_
+
+### Generators & Iterators
+When a generator is invoked - it creates and returns an iterator. This iterator can then be used to execute the actual generator's inner code.
+```
+const generatorIterator = getEmployee();
+generatorIterator.next();
+```
+
+Produces the code we expect:
+```
+the function has started
+Amanda
+Diego
+Farrin
+James
+Kagure
+Kavita
+Orit
+Richard
+the function has ended
+```
+
+### The Yield Keyword
+`yield` is what causes the generator to pause
+```
+function* getEmployee() {
+    console.log('the function has started');
+
+    const names = ['Amanda', 'Diego', 'Farrin', 'James', 'Kagure', 'Kavita', 'Orit', 'Richard'];
+
+    for (const name of names) {
+        console.log(name);
+        yield;
+    }
+
+    console.log('the function has ended');
+}
+```
+
+```
+const generatorIterator = getEmployee();
+generatorIterator.next();
+```
+Logs the following to the console:
+```
+the function has started
+Amanda
+```
+
+It's paused! But to really be sure, let's check out the next iteration:
+`generatorIterator.next();`
+
+Logs the following to the console:
+`Diego`
+
+### Yielding Data to the "Outside" World
+```
+function* getEmployee() {
+    console.log('the function has started');
+
+    const names = ['Amanda', 'Diego', 'Farrin', 'James', 'Kagure', 'Kavita', 'Orit', 'Richard'];
+
+    for (const name of names) {
+        yield name;
+    }
+
+    console.log('the function has ended');
+}
+
+const generatorIterator = getEmployee();
+let result = generatorIterator.next();
+result.value // is "Amanda"
+
+generatorIterator.next().value // is "Diego"
+generatorIterator.next().value // is "Farrin"
+```
+
+### Sending Data into/out of a Generator
+- yield keyword is used to pause a generator and used to send data outside of the generator, and then the .next() method is used to pass data into the generator
+```
+function* getEmployee() {
+    const names = ['Amanda', 'Diego', 'Farrin', 'James', 'Kagure', 'Kavita', 'Orit', 'Richard'];
+    const facts = [];
+
+    for (const name of names) {
+        // yield *out* each name AND store the returned data into the facts array
+        facts.push(yield name); 
+    }
+
+    return facts;
+}
+
+const generatorIterator = getEmployee();
+
+// get the first name out of the generator
+let name = generatorIterator.next().value;
+
+// pass data in *and* get the next name
+name = generatorIterator.next(`${name} is cool!`).value; 
+
+// pass data in *and* get the next name
+name = generatorIterator.next(`${name} is awesome!`).value; 
+
+// pass data in *and* get the next name
+name = generatorIterator.next(`${name} is stupendous!`).value; 
+
+// you get the idea
+name = generatorIterator.next(`${name} is rad!`).value; 
+name = generatorIterator.next(`${name} is impressive!`).value;
+name = generatorIterator.next(`${name} is stunning!`).value;
+name = generatorIterator.next(`${name} is awe-inspiring!`).value;
+
+// pass the last data in, generator ends and returns the array
+const positions = generatorIterator.next(`${name} is magnificent!`).value; 
+
+// displays each name with description on its own line
+positions.join('\n');
+```
