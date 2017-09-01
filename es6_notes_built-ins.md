@@ -413,3 +413,88 @@ mySundae.then(function(sundae) {
 });
 ```
 
+## Proxies
+-use the Proxy constructor - `new Proxy();`
+-takes two items:
+* the object that it will be the proxy for
+* an object containing the list of methods it will handle for the proxied object, called handler
+Ex:
+```
+var richard = {status: 'looking for work'};
+var agent = new Proxy(richard, {});
+
+agent.status; // returns 'looking for work'
+```
+
+### Get Trap
+The `get` trap is used to "intercept" calls to properties:
+```
+const richard = {status: 'looking for work'};
+const handler = {
+    get(target, propName) {
+        console.log(target); // the `richard` object, not `handler` and not `agent`
+        console.log(propName); // the name of the property the proxy (`agent` in this case) is checking
+    }
+};
+const agent = new Proxy(richard, handler);
+agent.status; // logs out the richard object (not the agent object!) and the name of the property being accessed (`status`)
+```
+
+#### Accessing the Target object from inside the proxy
+```
+const richard = {status: 'looking for work'};
+const handler = {
+    get(target, propName) {
+        console.log(target);
+        console.log(propName);
+        return target[propName];
+    }
+};
+const agent = new Proxy(richard, handler);
+agent.status; // (1)logs the richard object, (2)logs the property being accessed, (3)returns the text in richard.status
+```
+
+#### Having the proxy return info, directly
+```
+const richard = {status: 'looking for work'};
+const handler = {
+    get(target, propName) {
+        return `He's following many leads, so you should offer a contract as soon as possible!`;
+    }
+};
+const agent = new Proxy(richard, handler);
+agent.status; // returns the text `He's following many leads, so you should offer a contract as soon as possible!`
+```
+
+### Set Trap
+-used for intercepting code that will change a property
+```
+const richard = {status: 'looking for work'};
+const handler = {
+    set(target, propName, value) {
+        if (propName === 'payRate') { // if the pay is being set, take 15% as commission
+            value = value * 0.85;
+        }
+        target[propName] = value;
+    }
+};
+const agent = new Proxy(richard, handler);
+agent.payRate = 1000; // set the actor's pay to $1,000
+agent.payRate; // $850 the actor's actual pay
+```
+
+### Other Traps
+1. the get trap - lets the proxy handle calls to property access
+2. the set trap - lets the proxy handle setting the property to a new value
+3. the apply trap - lets the proxy handle being invoked (the object being proxied is a function)
+4. the has trap - lets the proxy handle the using in operator
+5. the deleteProperty trap - lets the proxy handle if a property is deleted
+6. the ownKeys trap - lets the proxy handle when all keys are requested
+7. the construct trap - lets the proxy handle when the proxy is used with the new keyword as a constructor
+8. the defineProperty trap - lets the proxy handle when defineProperty is used to create a new property on the object
+9. the getOwnPropertyDescriptor trap - lets the proxy handle getting the property's descriptors
+10. the preventExtenions trap - lets the proxy handle calls to Object.preventExtensions() on the proxy object
+11. the isExtensible trap - lets the proxy handle calls to Object.isExtensible on the proxy object
+12. the getPrototypeOf trap - lets the proxy handle calls to Object.getPrototypeOf on the proxy object
+13. the setPrototypeOf trap - lets the proxy handle calls to Object.setPrototypeOf on the proxy object
+
